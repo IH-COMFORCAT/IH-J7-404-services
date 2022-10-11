@@ -23,13 +23,13 @@ public class Application implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		productRepository.saveAll(List.of(
-			new Product("Super Smash Bros", new BigDecimal(49.99), 100l, Category.DIGITAL, Genre.SPORTS),
-			new Product("Call of Duty", new BigDecimal(59.99), 100l, Category.PHYSICAL, Genre.SHOOTER),
-			new Product("Fifa 23", new BigDecimal(79.99), 100l, Category.DIGITAL, Genre.SPORTS),
-			new Product("Final Fantasy", new BigDecimal(49.99), 100l, Category.DIGITAL, Genre.OPEN_WORLD),
-			new Product("StarCraft", new BigDecimal(25.99), 100l, Category.PHYSICAL, Genre.SHOOTER),
-			new Product("Sims", new BigDecimal(39.99), 100l, Category.DIGITAL, Genre.OPEN_WORLD),
-			new Product("League of Legends", new BigDecimal(49.99), 100l, Category.DIGITAL, Genre.MOBA)
+			new Product("Super Smash Bros", new BigDecimal("49.99"), 100l, Category.DIGITAL, Genre.SPORTS),
+			new Product("Call of Duty", new BigDecimal("59.99"), 100l, Category.PHYSICAL, Genre.SHOOTER),
+			new Product("Fifa 23", new BigDecimal("79.99"), 100l, Category.DIGITAL, Genre.SPORTS),
+			new Product("Final Fantasy", new BigDecimal("49.99"), 100l, Category.DIGITAL, Genre.OPEN_WORLD),
+			new Product("StarCraft", new BigDecimal("25.99"), 100l, Category.PHYSICAL, Genre.SHOOTER),
+			new Product("Sims", new BigDecimal("39.99"), 100l, Category.DIGITAL, Genre.OPEN_WORLD),
+			new Product("League of Legends", new BigDecimal("49.99"), 100l, Category.DIGITAL, Genre.MOBA)
 		));
 
 

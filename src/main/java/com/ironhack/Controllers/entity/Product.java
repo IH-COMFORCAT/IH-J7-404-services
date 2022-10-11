@@ -1,15 +1,25 @@
 package com.ironhack.Controllers.entity;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.validation.constraints.*;
 import java.math.*;
 
 @Entity
+@DynamicUpdate
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty
     private String name;
+    @Digits(integer = 4, fraction = 2)
+    @DecimalMin(value = "9.99")
     private BigDecimal price;
+    @Min(0)
+    @Max(9999)
     private Long stock;
     @Enumerated(EnumType.STRING)
     private Category category;
@@ -74,5 +84,7 @@ public class Product {
     public void setGenre(Genre genre) {
         this.genre = genre;
     }
+
+
 }
 

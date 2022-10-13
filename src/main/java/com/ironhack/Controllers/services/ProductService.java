@@ -21,6 +21,9 @@ public class ProductService implements ProductServiceInterface {
 
 
     public Product addProduct(Product product) {
+
+        if (productRepository.findById(product.getId()).isPresent()) throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+
         return productRepository.save(product);
     }
 
@@ -45,28 +48,36 @@ public class ProductService implements ProductServiceInterface {
     @Override
     public Product updateProduct(Long id, Product product) {
 
+        //
+        // Product product1 = productRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        if (!productRepository.findById(id).isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This product doesn't exist");
+        product.setId(id);
+        return productRepository.save(product);
+
+
+        /*
+
         if (productRepository.findById(id).isPresent()) {
             product.setId(id);
             return productRepository.save(product);
 
         }
         return null;
+
+         */
     }
 
     @Override
     public Product updateProductPrice(Long id, BigDecimal price) {
 
-        if (productRepository.existsById(id)) {
-            Product product1 = productRepository.findById(id).get();
+            Product product1 = productRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
             product1.setPrice(price);
             return productRepository.save(product1);
-        }
 
-        return null;
     }
 
     public Product getProductById(Long id) {
-
         return productRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A product with the given id does not exist"));
 
 

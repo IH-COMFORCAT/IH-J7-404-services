@@ -4,8 +4,10 @@ import com.ironhack.Controllers.entity.*;
 import com.ironhack.Controllers.repositories.*;
 import com.ironhack.Controllers.services.interfaces.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.*;
 
 import java.math.*;
 import java.time.*;
@@ -45,7 +47,7 @@ public class ProductService implements ProductServiceInterface {
 
         if (productRepository.findById(id).isPresent()) {
             product.setId(id);
-           return productRepository.save(product);
+            return productRepository.save(product);
 
         }
         return null;
@@ -64,7 +66,19 @@ public class ProductService implements ProductServiceInterface {
     }
 
     public Product getProductById(Long id) {
-        return productRepository.findById(id).get();
+
+        return productRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A product with the given id does not exist"));
+
+
+        /*
+        if (productRepository.findById(id).isPresent()) {
+            return productRepository.findById(id).get();
+        }
+
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "A product the the given id does not exist");
+
+
+         */
     }
 
 

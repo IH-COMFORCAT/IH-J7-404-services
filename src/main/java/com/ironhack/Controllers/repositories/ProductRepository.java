@@ -14,7 +14,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByGenre(Genre genre);
     List<Product> findByCategoryAndGenre(Category category, Genre genre);
 
-    Optional<Product> findByNameAndPriceAAndStockAndCategoryAndGenre(String name, BigDecimal price, Long stock, Category category, Genre genre);
+    Optional<Product> findByName(String name);
+
+    Optional<Product> findByNameAndPriceAndStockAndCategoryAndGenre(String name, BigDecimal price, Long stock, Category category, Genre genre);
 
 
 }

@@ -1,5 +1,6 @@
 package com.ironhack.Controllers.entity;
 
+import com.fasterxml.jackson.annotation.*;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -26,15 +27,31 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private Genre genre;
 
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "sales_rep_id")
+    private SalesRepresentative salesRepresentative;
+
+
     public Product() {
     }
 
-    public Product(String name, BigDecimal price, Long stock, Category category, Genre genre) {
+    public Product(String name, BigDecimal price, Long stock, Category category, Genre genre, SalesRepresentative
+                   salesRepresentative) {
         this.name = name;
         this.price = price;
         this.stock = stock;
         this.category = category;
         this.genre = genre;
+        this.salesRepresentative = salesRepresentative;
+    }
+
+    public SalesRepresentative getSalesRepresentative() {
+        return salesRepresentative;
+    }
+
+    public void setSalesRepresentative(SalesRepresentative salesRepresentative) {
+        this.salesRepresentative = salesRepresentative;
     }
 
     public Long getId() {

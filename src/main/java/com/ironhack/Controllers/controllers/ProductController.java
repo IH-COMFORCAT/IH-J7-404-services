@@ -49,6 +49,7 @@ public class ProductController implements ProductControllerInterface {
     @PostMapping("/products")
     @ResponseStatus(HttpStatus.CREATED)
     public Product addProduct(@RequestBody Product product) {
+
         return productService.addProduct(product);
 
 

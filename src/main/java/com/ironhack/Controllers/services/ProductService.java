@@ -22,9 +22,14 @@ public class ProductService implements ProductServiceInterface {
 
     public Product addProduct(Product product) {
 
-        if (productRepository.findById(product.getId()).isPresent()) throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+        // if (productRepository.findById(product.getId()).isPresent()) throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
 
-        return productRepository.save(product);
+        if (productRepository.findByNameAndPriceAndStockAndCategoryAndGenre(
+                product.getName(), product.getPrice(), product.getStock(), product.getCategory(), product.getGenre()).isPresent()) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
+            return productRepository.save(product);
     }
 
 
@@ -51,7 +56,8 @@ public class ProductService implements ProductServiceInterface {
         //
         // Product product1 = productRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        if (!productRepository.findById(id).isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This product doesn't exist");
+        if (!productRepository.findById(id).isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This product doesn't exist");
         product.setId(id);
         return productRepository.save(product);
 
@@ -71,9 +77,9 @@ public class ProductService implements ProductServiceInterface {
     @Override
     public Product updateProductPrice(Long id, BigDecimal price) {
 
-            Product product1 = productRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
-            product1.setPrice(price);
-            return productRepository.save(product1);
+        Product product1 = productRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        product1.setPrice(price);
+        return productRepository.save(product1);
 
     }
 

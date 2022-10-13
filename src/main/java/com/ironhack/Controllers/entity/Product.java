@@ -36,6 +36,14 @@ public class Product {
     public Product() {
     }
 
+    public Product(String name, BigDecimal price, Long stock, Category category, Genre genre) {
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.category = category;
+        this.genre = genre;
+    }
+
     public Product(String name, BigDecimal price, Long stock, Category category, Genre genre, SalesRepresentative
                    salesRepresentative) {
         this.name = name;
